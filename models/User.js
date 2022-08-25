@@ -42,7 +42,7 @@ id: false
 //CREATE A VIRTUAL CALLED FRIEND COUNT THAT RETRIEVES LENGTH OF USERS FRIENDS ON QUERY
 //virtual for friend count
 UserSchema.virtual('friendCount').get(function () {
-return this.comments.reduce((total, comment) => total + comment.replies.length + 1, 0);
+return this.friends.length;
 });
 
 //create the User model using the UserSchema
