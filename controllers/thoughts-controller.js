@@ -30,7 +30,7 @@ const thoughtsController = {
             })
     },
 
-    createThought({ body }, res) {
+    createThoughts({ body }, res) {
         Thoughts.create(body)
             .then(dbThoughtData => {
                 return User.findOneAndUpdate(
@@ -45,8 +45,59 @@ const thoughtsController = {
                 }
                 res.json(dbUserData)
             })
-            .catch(err => res.status(500).json(err));
+            .catch(err => res.status(500).json(err))
     })
+},
+
+updateThoughts({ params, body}, res) {
+    Thoughts.findOneAndUpdate({_id: params.id}, body, {new: true, runValidators: true})
+    .then(dbThoughtsData => {
+        if(!dbThoughtsData) {
+            res.status(404).json({ message: 'no thought found with this id' })
+            return;
+        }
+        res.status(dbThoughtsData)
+    })
+    .catch(err => res.status(404).json(err));
+},
+
+deleteThoughts({ params }, res) {
+    Thoughts.findOneAndDelete({ _id: params.id })
+    .then(dbThoughtsData => {
+        if(!dbThoughtsData) {
+            res.status(404).json({ message: 'no thought found with this id' })
+            return;
+        }
+        res.status(dbThoughtsData)
+    })
+    .catch(err => res.status(404).json(err));
+},
+
+addReaction ({ params }, res) {
+    //DOUBLE CHECK THIS ROUTE IS CORRECT
+    Thoughts.findOneAndUpdate({_id: params.reactions}, {$addToSet: {reactions: params.reactionId}}, {new: true})
+    .then(dbThoughtsData => {
+        if(!dbThoughtsData) {
+            res.status(404).json({ message: 'no thought found with this id'})
+            return;
+        }
+        res.json(dbThoughtsData)
+    })
+    .catch(err=> res.status(500).json(err))
+},
+
+removeReaction({ params }, res) {
+    Thoughts.findOneAndUpdate({_id: params.reactions}, { $pull: {reactions: params.reactionId}}, {new: true})
+    .then(dbThoughtsData => {
+        if(!dbThoughtsData) {
+            res.status(404).json({ message: 'no thought found with this id'})
+            return;
+        }
+        res.json(dbThoughtsData)
+    })
+    .catch(err=> res.status(500).json(err))
+}
 }
 
-}
+
+module.exports = thoughtsController;
