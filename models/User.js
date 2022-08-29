@@ -14,7 +14,7 @@ const UserSchema = new Schema ({
         required: true,
         unique: true,
         //MONGOOSE EMAIL VALIDATION
-        //match: 
+        match: [/.+@.+\..+/, 'Must match an email address!']
     },
     thoughts: [
         {
@@ -49,4 +49,4 @@ return this.friends.length;
 const User = model('User', UserSchema);
 
 //export user mdoel
-module.export = User;
+module.exports = User;
