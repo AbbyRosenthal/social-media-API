@@ -11,7 +11,7 @@ app.use(express.static('public'));
 app.use(require('./routes/api'));
 
 //NEED TO FINISH THIS PART
-mongoose.connect(process.env.MONGODB_URI || '', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/social-media-API', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
