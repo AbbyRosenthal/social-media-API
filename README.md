@@ -11,7 +11,9 @@ This is the backend project for a social media api.  The user has the ability to
 -This is a backend webpage, routes must be used and tested through the Insomnia app
 -The included walkthrough video demonstrates how a user would test the routes through the Insomnia app
 
-# Walkthrough Video
+# Walkthrough Videos
+https://drive.google.com/file/d/1odUFUqJ0ptUxolrNyovW3OAvb295eaZX/view
+
 
 # Github Repo
 https://github.com/AbbyRosenthal/social-media-API
